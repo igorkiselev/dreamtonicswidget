@@ -36,6 +36,8 @@
                     return Object.keys(el).length !== 0 ? true : false;
                 })[0];
                 
+                if(aiVoiceWidget){
+                
                 let tracks = aiVoiceWidget.tracks;
                 
                 if (tracks != null) {
@@ -71,6 +73,9 @@
                     
                     $d.removeClass(loadingClass);
                 }
+                }else{
+                    console.log("ID not found in database");
+                }
             });
             
         };
@@ -91,7 +96,7 @@
         };
         $player.jPlayer({
             ready: function() {
-                $widget.data("track") ? loadPlayer(null, "kevin") : null;
+                $widget.data("track") ? loadPlayer(null, $widget.data("track")) : console.log("No id is set");
             },
             timeupdate: function(event) {
                 if (parseInt(event.jPlayer.status.currentTime) != 0) {
