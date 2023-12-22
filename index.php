@@ -79,7 +79,7 @@ if ( !class_exists( 'DREAMTONICS_AUDIO_WIDGET' ) ) {
 			$assets = array( "jquery.jplayer", "jquery.dreamtonics.widget");
 			
 			foreach ($assets as &$asset) {
-				wp_register_script($asset, $this->assets("js/".$asset.'.js'), array('jquery'), $this->version(), true);
+				wp_register_script($asset, $this->assets("js/".$asset.'.min.js'), array('jquery'), $this->version(), true);
 				wp_enqueue_script($asset);
 			}
 			
