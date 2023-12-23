@@ -56,6 +56,7 @@
 }
 .dreamtonics button.player__select {
   background-image: url("data:image/svg+xml,%3Csvg width='7' height='11' viewBox='0 0 7 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M5.7832 4.72852C6.08789 5.00977 6.08789 5.50195 5.7832 5.7832L1.2832 10.2832C1.00195 10.5879 0.509766 10.5879 0.228516 10.2832C-0.0761719 10.002 -0.0761719 9.50977 0.228516 9.22852L4.18945 5.24414L0.228516 1.2832C-0.0761719 1.00195 -0.0761719 0.509766 0.228516 0.228516C0.509766 -0.0761719 1.00195 -0.0761719 1.2832 0.228516L5.7832 4.72852Z' fill='%23E6E6E6'/%3E %3C/svg%3E ");
+  transition: all 0s;
   transform: rotate(90deg);
 }
 .dreamtonics button.player__play {
@@ -140,10 +141,66 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 8px;
   border-radius: 80px;
   overflow: hidden;
+}
+.dreamtonics.widget .player__track.player__select_active {
+  border-radius: 0px 0px 20px 20px;
+}
+.dreamtonics.widget .player__track.player__select_active .player__select_combo {
+  display: block;
+  transform: translateY(0px);
+}
+.dreamtonics.widget .player__track.player__select_active .player__select_combo li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin: 0px;
+}
+.dreamtonics.widget .player__track.player__select_active .player__select_combo li span.player__select_track_name {
+  flex-grow: 1;
+}
+.dreamtonics.widget .player__track.player__select_active .player__select_combo li span.player__select_track_tag {
+  background-color: #808080;
+  border-radius: 4px;
+  padding: 3px 6px;
+  line-height: 100%;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.dreamtonics.widget .player__track.player__select_active .player__select {
+  transform: rotate(270deg);
+}
+.dreamtonics.widget .player__track.player__select_active button {
+  border-radius: 0px !important;
+}
+.dreamtonics.widget .player__select_combo {
+  position: absolute;
+  width: 100%;
+  background-color: #494949;
+  color: #E5E5E5;
+  z-index: 3;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 1s;
+  display: none;
+  transform: translateY(-50px);
+  padding: 0px;
+  box-shadow: 0px 4px 48px 0px #00000040;
+}
+.dreamtonics.widget .player__select_combo li {
+  border-bottom: 1px Solid #545454;
+  padding: 8px 16px;
+}
+.dreamtonics.widget .player__select_combo li.selected {
+  background-color: #459BFF;
+}
+.dreamtonics.widget .player__select_combo li:hover {
+  background-color: #3286e7;
 }
 .dreamtonics.widget .player__trackname {
   min-width: 140px;
@@ -151,7 +208,6 @@
   letter-spacing: 0.02em;
   text-align: center;
   color: #E5E5E5;
-  width: 100%;
   display: block;
   line-height: 22px;
 }

@@ -11,6 +11,9 @@
                 
         let selectedAi = 0, selectedAiMode = 0, trackTime = 0, aiVoiceWidget, mediaPlaying = 0;
         
+        
+        let combo, comboDelay = 250;
+        
         const loadFileName = () => {
             let filename = widgetMedia + aiVoiceWidget.id + "_" + aiVoiceWidget.tracks[selectedAi].id + "_" + aiVoiceWidget["vocal-modes"][selectedAiMode] + ".ogg";
             return filename;
@@ -53,6 +56,26 @@
                     
                     $d.find(".player__ai_title").text($text.name);
                     $d.find(".player__ai_caption").text($text.copyright);
+                    
+                    $d.find(".player__select_combo").html("");
+                    $.each(tracks, function(index, value) {
+                        let $line = $("<li />", {
+                            "data-track": index,
+                            class: selectedAi == index ? "selected" : null
+                        }).append(
+                            $("<span />", {
+                                text: value.title,
+                                class: "player__select_track_name"
+                            }),
+                            $("<span />", {
+                                text: value.language,
+                                class: "player__select_track_tag"
+                            })
+                            
+                        );
+                        $d.find(".player__select_combo").append($line);
+                    });
+                    
                     $d.find(".player__trackname").text(tracks[selectedAi].title);
                     
                     let modes = aiVoiceWidget["vocal-modes"];
@@ -162,6 +185,39 @@
             selectedAiMode >= 0 ? $d.find(".player__mode_next").prop("disabled", false) : null;
             selectedAiMode == 0 ? $(this).prop("disabled", true) : null;
             setMode();
+            e.preventDefault();
+        });
+        
+        $d.on("click", ".player__track:not(.player__select_active) .player__select", function(e) {
+            $widget.find(".player__track").addClass("player__select_active");
+            $d.find(".player__select_combo").css({
+                maxWidth: $d.find(".player__track").width()
+            });
+            e.preventDefault();
+        });
+        
+        $d.on("click", ".player__track.player__select_active .player__select", function(e) {
+            $widget.find(".player__track").removeClass("player__select_active");
+            combo = $widget.find(".player__track").hasClass("player__select_active") ? setTimeout(() => {
+                $widget.find(".player__track").removeClass("player__select_active");
+            }, comboDelay) : null;
+            e.preventDefault();
+        });
+        
+        $d.on("click", ".player__select_combo li", function(e) {
+            selectedAi = $(this).attr("data-track") * 1;
+            setTrack();
+            $widget.find(".player__track").removeClass("player__select_active");
+            e.preventDefault();
+        });
+        $d.on("mousemove", ".player__select_combo", function(e) {
+            $widget.find(".player__track").hasClass("player__select_active") ? clearTimeout(combo) : null;
+            e.preventDefault();
+        });
+        $d.on("mouseleave", ".player__select_combo", function(e) {
+            combo = $widget.find(".player__track").hasClass("player__select_active") ? setTimeout(() => {
+                $widget.find(".player__track").removeClass("player__select_active");
+            }, comboDelay) : null;
             e.preventDefault();
         });
        
