@@ -236,6 +236,11 @@
   text-align: center;
   color: #E5E5E5;
 }
+@media (max-width: 767.98px) {
+  .dreamtonics.widget .player__mode_name {
+    min-width: unset;
+  }
+}
 .dreamtonics.widget .player__mode label {
   font-weight: 400;
   line-height: 15px;

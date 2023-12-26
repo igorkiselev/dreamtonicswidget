@@ -312,6 +312,9 @@ $label : #808080;
 
 				&_name {
 					min-width: 280px;
+					@include media-breakpoint-down(md) {
+						min-width: unset;
+					}
 					font-size: 18px;
 					font-family: 'Noto Sans JP' sans-serif;
 					line-height: 2px;
